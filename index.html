@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Club Manager</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ================= FUNDO DE CAMPO ================= -->
+<div class="pitch-bg" aria-hidden="true"></div>
+
+<!-- ================= TOASTS ================= -->
+<div id="toast-container" class="toast-container"></div>
+
+<!-- ================= TELA: MENU PRINCIPAL ================= -->
+<section id="screen-menu" class="screen screen-menu active">
+  <div class="menu-wrap">
+    <div class="menu-brand">
+      <span class="menu-brand__crest">⚽</span>
+      <h1 class="menu-brand__title">CLUB<span>MANAGER</span></h1>
+      <p class="menu-brand__tag">Temporada 26/27 · Sua carreira, seu clube</p>
+    </div>
+
+    <nav class="menu-nav">
+      <button class="menu-btn menu-btn--primary" data-action="show-new-club">
+        <span class="menu-btn__icon">🆕</span>
+        <span>Criar novo clube</span>
+      </button>
+      <button class="menu-btn" data-action="continue-career">
+        <span class="menu-btn__icon">▶️</span>
+        <span>Continuar carreira</span>
+      </button>
+      <button class="menu-btn" data-action="show-settings-menu">
+        <span class="menu-btn__icon">⚙️</span>
+        <span>Configurações</span>
+      </button>
+      <button class="menu-btn" data-action="show-ranking-menu">
+        <span class="menu-btn__icon">🏆</span>
+        <span>Ranking</span>
+      </button>
+      <button class="menu-btn" data-action="show-credits-menu">
+        <span class="menu-btn__icon">🎬</span>
+        <span>Créditos</span>
+      </button>
+    </nav>
+    <p class="menu-footnote" id="continue-hint"></p>
+  </div>
+</section>
+
+<!-- ================= TELA: CRIAÇÃO DE CLUBE ================= -->
+<section id="screen-creation" class="screen">
+  <div class="creation-wrap">
+    <header class="creation-header">
+      <button class="btn-ghost" data-action="back-to-menu">← Voltar</button>
+      <h2>Fundação do Clube</h2>
+      <div class="creation-steps" id="creation-steps"></div>
+    </header>
+
+    <div class="creation-body" id="creation-body">
+      <!-- Preenchido via JS (steps) -->
+    </div>
+
+    <footer class="creation-footer">
+      <button class="btn-secondary" id="creation-prev">Anterior</button>
+      <button class="btn-primary" id="creation-next">Próximo</button>
+    </footer>
+  </div>
+</section>
+
+<!-- ================= TELA: RANKING (menu) ================= -->
+<section id="screen-ranking-menu" class="screen">
+  <div class="simple-page">
+    <button class="btn-ghost" data-action="back-to-menu">← Voltar</button>
+    <h2>🏆 Ranking Global</h2>
+    <p class="simple-page__desc">Os maiores clubes da história do Club Manager (dados de demonstração).</p>
+    <div id="ranking-menu-list" class="ranking-list"></div>
+  </div>
+</section>
+
+<!-- ================= TELA: CONFIGURAÇÕES (menu) ================= -->
+<section id="screen-settings-menu" class="screen">
+  <div class="simple-page">
+    <button class="btn-ghost" data-action="back-to-menu">← Voltar</button>
+    <h2>⚙️ Configurações</h2>
+    <div class="settings-list">
+      <label class="settings-row">
+        <span>Som ambiente</span>
+        <input type="checkbox" id="opt-sound" checked>
+      </label>
+      <label class="settings-row">
+        <span>Animações reduzidas</span>
+        <input type="checkbox" id="opt-reduced-motion">
+      </label>
+      <label class="settings-row">
+        <span>Velocidade da simulação</span>
+        <select id="opt-sim-speed">
+          <option value="slow">Lenta</option>
+          <option value="normal" selected>Normal</option>
+          <option value="fast">Rápida</option>
+        </select>
+      </label>
+      <button class="btn-danger" data-action="wipe-save">🗑️ Apagar dados salvos</button>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TELA: CRÉDITOS ================= -->
+<section id="screen-credits-menu" class="screen">
+  <div class="simple-page">
+    <button class="btn-ghost" data-action="back-to-menu">← Voltar</button>
+    <h2>🎬 Créditos</h2>
+    <div class="credits-card">
+      <p><strong>Club Manager</strong> — um jogo de gestão de futebol construído com HTML, CSS e JavaScript puros.</p>
+      <p>Inspirado em Football Manager, Top Eleven e EA FC Career Mode.</p>
+      <p>Desenvolvido em etapas — Etapa 1: fundação, navegação e elenco inicial.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= APP PRINCIPAL (PÓS-CRIAÇÃO) ================= -->
+<section id="screen-app" class="screen app-shell">
+  <aside class="sidebar">
+    <div class="sidebar__club" id="sidebar-club">
+      <span class="sidebar__crest" id="sidebar-crest">🛡️</span>
+      <div>
+        <div class="sidebar__club-name" id="sidebar-club-name">—</div>
+        <div class="sidebar__club-meta" id="sidebar-club-meta">—</div>
+      </div>
+    </div>
+
+    <nav class="sidebar__nav">
+      <button class="nav-item active" data-screen="dashboard"><span>📊</span>Dashboard</button>
+      <button class="nav-item" data-screen="elenco"><span>👥</span>Elenco</button>
+      <button class="nav-item" data-screen="mercado"><span>💰</span>Mercado</button>
+      <button class="nav-item" data-screen="treinamento"><span>🏋️</span>Treinamento</button>
+      <button class="nav-item" data-screen="financas"><span>📈</span>Finanças</button>
+      <button class="nav-item" data-screen="estadio"><span>🏟️</span>Estádio</button>
+      <button class="nav-item" data-screen="academia"><span>🌱</span>Academia</button>
+      <button class="nav-item" data-screen="calendario"><span>📅</span>Calendário</button>
+      <button class="nav-item" data-screen="competicoes"><span>🏆</span>Competições</button>
+      <button class="nav-item" data-screen="historico"><span>📜</span>Histórico</button>
+      <button class="nav-item" data-screen="configuracoes"><span>⚙️</span>Configurações</button>
+    </nav>
+
+    <button class="sidebar__exit" data-action="exit-to-menu">🚪 Sair para o menu</button>
+  </aside>
+
+  <main class="main-content" id="main-content">
+    <!-- Telas internas injetadas via JS -->
+  </main>
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>
